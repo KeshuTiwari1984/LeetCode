@@ -10,19 +10,20 @@ class Solution {
     bool dfs_for_cycle(int x, vi G[], vi &color)
     {
         color[x] = 1;
+        bool ans = 0;
         for (auto nb : G[x])
         {
             if (color[nb] == 0) 
             {
-                bool ans = dfs_for_cycle(nb, G, color);
-                if (ans == true) return true;
+                ans |= dfs_for_cycle(nb, G, color);
+                
             }
             
             // if we encounter an already visited vertex
             else if (color[nb] == 1) return true;
         }
         color[x] = 2;
-        return false;
+        return ans;
     }
     
     bool isCyclic(int v, vector<int> adj[]) {
