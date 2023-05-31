@@ -45,11 +45,7 @@ class Solution{
          }
          
          sort(v.begin(), v.end(), [&](vector<int> &a1, vector<int> &a2) {
-             if (a1[0] == a2[0])
-             {
-                 if (a1[1] == a2[1]) return a1[2] > a2[1];
-                 return a1[1] > a2[1];
-             }
+             if (a1[0] == a2[0]) return a1[1] > a2[1];
              return a1[0] < a2[0];
          });
          dp = vector<vector<int>> (v.size()+1, vector<int> (v.size()+1, -1));
