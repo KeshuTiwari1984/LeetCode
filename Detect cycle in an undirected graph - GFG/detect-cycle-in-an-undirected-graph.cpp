@@ -8,7 +8,7 @@ class Solution {
     // Function to detect cycle in an undirected graph.
     bool dfs_cycle(int x, int p, int par[], vector<int> g[], int color[])
     {
-        // if (color[x] == 2) return 0;
+        if (color[x] == 2) return 0;
         if(color[x] == 1)
         {
             return true;
