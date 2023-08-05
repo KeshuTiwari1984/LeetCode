@@ -6,37 +6,38 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-    #define vi vector<int>
-    bool dfs_for_cycle(int x, vi G[], vi &color)
+    
+    bool dfs_cycle(int x, int p, int par[], vector<int> g[], int color[])
     {
-        color[x] = 1;
-        bool ans = 0;
-        for (auto nb : G[x])
+        if (color[x] == 2) return 0;
+        if(color[x] == 1)
         {
-            if (color[nb] == 0) 
-            {
-                ans |= dfs_for_cycle(nb, G, color);
-                
-            }
-            
-            // if we encounter an already visited vertex
-            else if (color[nb] == 1) return true;
+            return true;
+        }
+        
+        par[x] = p;
+        color[x] = 1;
+        for (auto nb:g[x])
+        {
+            // if (nb==p) continue;
+            if (dfs_cycle(nb,x,par,g,color)) return 1;
         }
         color[x] = 2;
-        return ans;
+        return 0;
     }
     
-    bool isCyclic(int v, vector<int> adj[]) {
-        
-        bool ans = 0; vi color(v, 0);
-        for (int i=0; i<v; i++)
+    bool isCyclic(int V, vector<int> adj[]) {
+        // code here
+        int par[V], color[V];
+        memset(color,0,sizeof color);
+        for (int i=0; i<V; i++)
         {
             if (color[i] == 0)
             {
-                ans |= dfs_for_cycle(i, adj, color);
+                if (dfs_cycle(i,-1,par,adj,color)) return 1;
             }
         }
-        return ans;
+        return 0;
     }
 };
 
